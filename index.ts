@@ -1,4 +1,5 @@
 import { input } from '@inquirer/prompts';
+import { ExitPromptError } from '@inquirer/core';
 
 // Prompt types available from '@inquirer/prompts':
 //   input     - text input with optional validation/default
@@ -16,5 +17,9 @@ try {
     const name = await input({ message: 'Enter your name' });
     console.log(`Hello, ${name}!`);
 } catch (error) {
-    console.error('An error occurred:', error);
+    if (error instanceof ExitPromptError) {
+        process.exit(0);
+    }
+    console.error('Error:', error instanceof Error ? error.message : error);
+    process.exit(1);
 }

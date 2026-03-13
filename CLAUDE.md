@@ -268,7 +268,7 @@ const answer = await input(
 Ctrl+C throws `ExitPromptError`. Handle gracefully:
 
 ```ts
-import { ExitPromptError } from '@inquirer/prompts';
+import { ExitPromptError } from '@inquirer/core';
 
 try {
   const answer = await input({ message: 'Name?' });
