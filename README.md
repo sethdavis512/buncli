@@ -292,7 +292,7 @@ Host the binary anywhere reachable — an S3 bucket, a GitHub Release asset, or 
 ## Quick Reference
 
 | Task | How |
-|------|-----|
+| ------ | ----- |
 | Parse commands & options | `commander` — `program.command().option().action()` |
 | Interactive prompts | `@inquirer/prompts` — `input`, `select`, `confirm`, `checkbox` |
 | Run shell commands | `import { $ } from 'bun'` — `` await $`cmd` `` |
