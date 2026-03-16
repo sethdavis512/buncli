@@ -2,6 +2,21 @@
 
 A template for building full-featured CLI tools with Bun, Commander, and Inquirer.
 
+## Use Cases
+
+A shared internal CLI is one of the fastest ways to bring consistency to a fragmented team. Here are practical ways to put it to use:
+
+- **Standardized project scaffolding** — Prompt developers through required setup steps (repo name, tech stack, environment config) so every new project starts from the same baseline instead of whoever's laptop template from two years ago.
+- **Environment and service status checks** — Poll staging and production endpoints, database connections, and third-party integrations to surface outages or misconfigurations before they become support tickets.
+- **Guided deployment workflows** — Walk engineers through pre-flight checks, environment selection, and confirmation steps before pushing to production, reducing the chance of a rushed deploy skipping critical steps.
+- **Internal data lookups** — Query internal APIs, databases, or spreadsheets by record ID, customer name, or date range — no more digging through five dashboards to answer a straightforward question.
+- **Automated release notes generation** — Pull merged PRs and commit history since the last tag and format them into a changelog, consistently, every time.
+- **Onboarding automation** — New hire runs one command and gets their local environment configured: dependencies installed, `.env` files populated from a secrets manager, and seed data loaded.
+- **Cross-team task automation** — Trigger repetitive multi-step workflows (cache invalidation, permission grants, feature flag toggles) that currently live in someone's personal notes or Slack history.
+- **Audit and compliance reporting** — Generate point-in-time snapshots of user access, configuration state, or data exports in a consistent format for security reviews or client reporting.
+- **Secrets and credential rotation** — Walk through rotating API keys or tokens across services with confirmation prompts and automatic validation that the new credentials work before the old ones are revoked.
+- **Incident response runbooks** — Encode the steps engineers take during an outage (pull logs, restart services, notify stakeholders) into a guided interactive script so the playbook is actually followed under pressure.
+
 ## Stack
 
 - **[Bun](https://bun.sh)** — Runtime, bundler, and package manager
@@ -263,7 +278,16 @@ bun install -g mycli
 
 ### As a standalone binary
 
-Distribute the compiled binary directly. Users just download and run it — no runtime needed.
+Compile your CLI into a self-contained executable that embeds the Bun runtime alongside your code. The resulting binary has zero external dependencies — no Node.js, no Bun, no `node_modules` — so users can download a single file and run it immediately.
+
+This is ideal for distributing internal tooling to teammates who aren't set up with a JavaScript runtime, shipping a CLI to end users without requiring any install steps, or deploying to CI environments where you want a predictable, hermetic tool.
+
+```bash
+bun build --compile ./index.ts --outfile mycli
+./mycli --help
+```
+
+Host the binary anywhere reachable — an S3 bucket, a GitHub Release asset, or your own file server. Users download the file for their platform, make it executable (`chmod +x mycli` on macOS/Linux), and they're done.
 
 ## Quick Reference
 
