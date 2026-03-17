@@ -1,6 +1,7 @@
 import { Command } from 'commander';
 import { input } from '@inquirer/prompts';
 import { ExitPromptError } from '@inquirer/core';
+import { registerScaffold } from './commands/scaffold';
 
 const program = new Command();
 
@@ -25,5 +26,7 @@ program
             process.exit(1);
         }
     });
+
+registerScaffold(program);
 
 program.parse();
