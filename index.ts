@@ -1,6 +1,7 @@
 import { Command } from 'commander';
 import { input } from '@inquirer/prompts';
 import { ExitPromptError } from '@inquirer/core';
+import { registerEnvCheck } from './commands/envCheck';
 
 const program = new Command();
 
@@ -25,5 +26,7 @@ program
             process.exit(1);
         }
     });
+
+registerEnvCheck(program);
 
 program.parse();
