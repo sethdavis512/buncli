@@ -2,6 +2,10 @@
 
 A template for building full-featured CLI tools with Bun, Commander, and Inquirer.
 
+> [!TIP]
+> This is a GitHub template repository. Click **Use this template** to start a new
+> CLI from it, or clone it directly: `git clone https://github.com/sethdavis512/buncli.git`
+
 ## Use Cases
 
 A shared internal CLI is one of the fastest ways to bring consistency to a fragmented team. Here are practical ways to put it to use:
@@ -33,8 +37,20 @@ bun install
 ## Run
 
 ```bash
-bun run index.ts
+bun run index.ts          # Run the CLI
+bun run index.ts greet    # Run the greet command
 ```
+
+## Scripts
+
+The template ships with npm scripts for running and compiling:
+
+| Script | What it does |
+| ------ | ----- |
+| `bun start` | Run the CLI (`bun run index.ts`) |
+| `bun run compile` | Compile a standalone binary to `dist/buncli` |
+| `bun run compile:all` | Cross-compile binaries for Linux, macOS, and Windows |
+| `bun run compile:{darwin,linux,windows}-{x64,arm64}` | Compile a single platform target |
 
 ## Project Structure
 
@@ -301,3 +317,7 @@ Host the binary anywhere reachable — an S3 bucket, a GitHub Release asset, or 
 | Environment variables | `process.env.VAR` (Bun loads `.env` automatically) |
 | Compile to binary | `bun build --compile ./index.ts --outfile mycli` |
 | Cross-compile | `--target=bun-{linux,darwin,windows}-{x64,arm64}` |
+
+## License
+
+[MIT](LICENSE) © Seth Davis

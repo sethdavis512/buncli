@@ -1,8 +1,29 @@
 {
   "name": "buncli",
+  "version": "0.1.0",
+  "description": "A single-file Bun CLI template built with Commander and @inquirer/prompts, compilable to a standalone binary.",
   "module": "index.ts",
   "type": "module",
-  "private": true,
+  "author": "Seth Davis",
+  "license": "MIT",
+  "homepage": "https://github.com/sethdavis512/buncli#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sethdavis512/buncli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sethdavis512/buncli/issues"
+  },
+  "keywords": [
+    "bun",
+    "cli",
+    "typescript",
+    "commander",
+    "inquirer",
+    "cli-template",
+    "template",
+    "standalone-binary"
+  ],
   "scripts": {
     "start": "bun run index.ts",
     "compile": "bun build --compile --minify --bytecode ./index.ts --outfile dist/buncli",
