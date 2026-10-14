@@ -5,6 +5,7 @@
     "": {
       "name": "buncli",
       "dependencies": {
+        "@inquirer/core": "^12.0.4",
         "@inquirer/prompts": "^8.7.3",
         "commander": "^15.0.0",
       },

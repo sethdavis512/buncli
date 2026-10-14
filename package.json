@@ -1,7 +1,7 @@
 {
   "name": "buncli",
   "version": "0.1.0",
-  "description": "A single-file Bun CLI template built with Commander and @inquirer/prompts, compilable to a standalone binary.",
+  "description": "A Bun CLI template built with Commander and @inquirer/prompts for people and AI agents alike, compilable to a standalone binary.",
   "module": "index.ts",
   "type": "module",
   "author": "Seth Davis",
@@ -22,7 +22,8 @@
     "inquirer",
     "cli-template",
     "template",
-    "standalone-binary"
+    "standalone-binary",
+    "ai-agents"
   ],
   "scripts": {
     "start": "bun run index.ts",
@@ -41,6 +42,7 @@
     "typescript": "^5"
   },
   "dependencies": {
+    "@inquirer/core": "^12.0.4",
     "@inquirer/prompts": "^8.7.3",
     "commander": "^15.0.0"
   }
