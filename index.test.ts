@@ -53,7 +53,7 @@ describe('usage errors', () => {
     it('exits 2 on an unknown option', async () => {
         const { stderr, exitCode } = await run('greet', 'Ada', '--bogus');
         expect(exitCode).toBe(2);
-        expect(stderr).toContain("unknown option '--bogus'");
+        expect(stderr).toBe("Error [unknown_option]: Unknown option '--bogus'\nHint: Run `buncli --help` or `buncli <command> --help` for usage.\n");
     });
 
     it('reports an unknown command as JSON with --json', async () => {

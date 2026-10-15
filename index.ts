@@ -29,9 +29,12 @@ Exit codes:
 For AI agents:
   buncli skills get core   operating guide (flags, output, exit codes)
   buncli schema            every command, argument and option as JSON`)
-    .showHelpAfterError('(run with --help for usage)')
-    // With --json, errors are reported as JSON by reportError instead.
-    .configureOutput({ writeErr: (str) => { if (!json) process.stderr.write(str); } })
+    .configureOutput({
+        // reportError prints every error, so parse errors match the rest.
+        outputError: () => {},
+        // With --json, the help shown for a missing command is dropped too.
+        writeErr: (str) => { if (!json) process.stderr.write(str); },
+    })
     // Throw instead of calling process.exit, so reportError picks the exit code.
     .exitOverride();
 

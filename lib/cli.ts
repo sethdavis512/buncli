@@ -110,15 +110,18 @@ export function reportError(error: unknown, json: boolean): number {
         if (error.exitCode === 0) return ExitCode.Ok;
         // `commander.help` here means no command was given: Commander printed help to stderr.
         const noCommand = error.code === 'commander.help';
+        const code = noCommand ? 'no_command' : commanderCode(error.code);
+        const message = noCommand ? 'No command given.' : error.message.replace(/^error: /, '');
         if (json) {
-            const code = noCommand ? 'no_command' : commanderCode(error.code);
-            const message = noCommand ? 'No command given.' : error.message.replace(/^error: /, '');
             writeJsonError(code, message, 'Run `buncli schema` to list commands, arguments and options.');
-        } else if (noCommand) {
-            console.error('\nError [no_command]: No command given.');
-            console.error('Hint: Run one of the commands above, for example `buncli greet <name>`.');
+        } else {
+            // Commander's own error output is silenced in index.ts, so every error looks the same.
+            const hint = noCommand
+                ? 'Run one of the commands above, for example `buncli greet <name>`.'
+                : 'Run `buncli --help` or `buncli <command> --help` for usage.';
+            console.error(`${noCommand ? '\n' : ''}Error [${code}]: ${message.charAt(0).toUpperCase()}${message.slice(1)}`);
+            console.error(`Hint: ${hint}`);
         }
-        // Otherwise Commander has already printed the error and a help hint.
         return ExitCode.Usage;
     }
 
