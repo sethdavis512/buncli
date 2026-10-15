@@ -111,10 +111,11 @@ export function reportError(error: unknown, json: boolean): number {
         // `commander.help` here means no command was given: Commander printed help to stderr.
         const noCommand = error.code === 'commander.help';
         if (json) {
+            const code = noCommand ? 'no_command' : commanderCode(error.code);
             const message = noCommand ? 'No command given.' : error.message.replace(/^error: /, '');
-            writeJsonError(commanderCode(error.code), message, 'Run `buncli schema` to list commands, arguments and options.');
+            writeJsonError(code, message, 'Run `buncli schema` to list commands, arguments and options.');
         } else if (noCommand) {
-            console.error('\nError: No command given.');
+            console.error('\nError [no_command]: No command given.');
             console.error('Hint: Run one of the commands above, for example `buncli greet <name>`.');
         }
         // Otherwise Commander has already printed the error and a help hint.

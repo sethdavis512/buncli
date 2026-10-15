@@ -16,7 +16,7 @@ const skills = [
 export function registerSkills(program: Command): void {
     const command = program
         .command('skills')
-        .description('Print agent guides built into this binary (start with `skills get core`)')
+        .description('Print agent guides built into this binary')
         .addHelpText('after', `
 Examples:
   $ buncli skills                 # list guides

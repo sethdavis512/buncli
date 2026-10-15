@@ -80,7 +80,7 @@ export function buildSchema(program: Command) {
 export function registerSchema(program: Command): void {
     program
         .command('schema')
-        .description('Print every command, argument and option as JSON (for agents and scripts)')
+        .description('Print every command, argument and option as JSON')
         .action(() => {
             console.log(JSON.stringify(buildSchema(program), null, 2));
         });

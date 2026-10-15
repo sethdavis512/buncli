@@ -68,12 +68,20 @@ describe('usage errors', () => {
         expect(exitCode).toBe(2);
         expect(stdout).toBe('');
         expect(stderr).toContain('Usage: buncli');
-        expect(stderr).toContain('Error: No command given.');
+        expect(stderr).toContain('Error [no_command]: No command given.');
+    });
+
+    it('reports a missing command as JSON with --json', async () => {
+        const { stdout, stderr, exitCode } = await run('--json');
+        expect(exitCode).toBe(2);
+        expect(stdout).toBe('');
+        expect(JSON.parse(stderr)).toMatchObject({ error: { code: 'no_command' } });
     });
 
     it('exits 0 for --help and --version', async () => {
         const help = await run('--help');
         expect(help.exitCode).toBe(0);
+        expect(help.stdout).toContain('Examples:');
         expect(help.stdout).toContain('Exit codes:');
         expect(await run('--version')).toMatchObject({ stdout: '0.1.0\n', exitCode: 0 });
     });

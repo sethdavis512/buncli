@@ -13,9 +13,14 @@ program
     .name('buncli')
     .description('A simple CLI built with Bun')
     .version('0.1.0')
-    .option('--json', 'print results as one line of JSON on stdout (errors go to stderr as JSON)')
+    .option('--json', 'one line of JSON on stdout; errors as JSON on stderr')
     .option('--non-interactive', 'never prompt; fail with a usage error when input is missing')
     .addHelpText('after', `
+Examples:
+  $ buncli greet Ada
+  $ buncli greet Ada --json
+  $ buncli greet --help
+
 Exit codes:
   0  success
   1  runtime error
