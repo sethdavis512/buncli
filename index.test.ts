@@ -37,7 +37,7 @@ describe('greet', () => {
         const { stdout, stderr, exitCode } = await run('greet');
         expect(exitCode).toBe(2);
         expect(stdout).toBe('');
-        expect(stderr).toContain('Missing required input: name.');
+        expect(stderr).toContain('Error [missing_input]: Missing required input: name.');
         expect(stderr).toContain('Hint: Pass it as an argument');
     });
 
@@ -63,8 +63,18 @@ describe('usage errors', () => {
         expect(JSON.parse(stderr)).toMatchObject({ error: { code: 'unknown_command' } });
     });
 
+    it('exits 2 with help and a reason when no command is given', async () => {
+        const { stdout, stderr, exitCode } = await run();
+        expect(exitCode).toBe(2);
+        expect(stdout).toBe('');
+        expect(stderr).toContain('Usage: buncli');
+        expect(stderr).toContain('Error: No command given.');
+    });
+
     it('exits 0 for --help and --version', async () => {
-        expect((await run('--help')).exitCode).toBe(0);
+        const help = await run('--help');
+        expect(help.exitCode).toBe(0);
+        expect(help.stdout).toContain('Exit codes:');
         expect(await run('--version')).toMatchObject({ stdout: '0.1.0\n', exitCode: 0 });
     });
 });

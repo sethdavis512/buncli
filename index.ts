@@ -16,6 +16,11 @@ program
     .option('--json', 'print results as one line of JSON on stdout (errors go to stderr as JSON)')
     .option('--non-interactive', 'never prompt; fail with a usage error when input is missing')
     .addHelpText('after', `
+Exit codes:
+  0  success
+  1  runtime error
+  2  usage error: bad or missing arguments, options or input
+
 For AI agents:
   buncli skills get core   operating guide (flags, output, exit codes)
   buncli schema            every command, argument and option as JSON`)

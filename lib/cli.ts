@@ -108,13 +108,16 @@ export function reportError(error: unknown, json: boolean): number {
     if (error instanceof CommanderError) {
         // --help and --version also arrive here (exitCode 0) because of exitOverride().
         if (error.exitCode === 0) return ExitCode.Ok;
+        // `commander.help` here means no command was given: Commander printed help to stderr.
+        const noCommand = error.code === 'commander.help';
         if (json) {
-            const message = error.code === 'commander.help'
-                ? 'No command given.'
-                : error.message.replace(/^error: /, '');
+            const message = noCommand ? 'No command given.' : error.message.replace(/^error: /, '');
             writeJsonError(commanderCode(error.code), message, 'Run `buncli schema` to list commands, arguments and options.');
+        } else if (noCommand) {
+            console.error('\nError: No command given.');
+            console.error('Hint: Run one of the commands above, for example `buncli greet <name>`.');
         }
-        // Without --json, Commander has already printed the error and a help hint.
+        // Otherwise Commander has already printed the error and a help hint.
         return ExitCode.Usage;
     }
 
@@ -122,7 +125,7 @@ export function reportError(error: unknown, json: boolean): number {
         if (json) {
             writeJsonError(error.code, error.message, error.hint);
         } else {
-            console.error(`Error: ${error.message}`);
+            console.error(`Error [${error.code}]: ${error.message}`);
             if (error.hint) console.error(`Hint: ${error.hint}`);
         }
         return error.exitCode;
@@ -132,7 +135,7 @@ export function reportError(error: unknown, json: boolean): number {
     if (json) {
         writeJsonError('internal_error', message);
     } else {
-        console.error(`Error: ${message}`);
+        console.error(`Error [internal_error]: ${message}`);
     }
     return ExitCode.Error;
 }

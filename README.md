@@ -172,7 +172,7 @@ buncli greet --json
 Without `--json`, the same error is human-readable:
 
 ```text
-Error: Missing required input: name.
+Error [missing_input]: Missing required input: name.
 Hint: Pass it as an argument: `buncli greet <name>`.
 ```
 
